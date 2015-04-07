@@ -23,7 +23,6 @@ body{
 	min-height: 256px; 
 	border: 1px solid #21ec21;
 	background-color: #ffffff;
-	overflow: scroll;
 }
 
 #single_string_test_elements{
@@ -32,9 +31,6 @@ body{
 }
 
 #left{
-	position: absolute;
-	top: 0px;
-	left: 0px;
 	height: 100%;
 	width: 100%;
 	border: 1px solid black;
@@ -49,20 +45,20 @@ body{
 	text-align: center;
 	display: block;
 	background-color: #baffb0;
-	background: url('circle.png');
+	background: url('images/circle.png');
 	overflow: hidden;
 }
 
 .accept{
-	background: url('accept_circle.png');
+	background: url('images/accept_circle.png');
 }
 
 .highlight{
-	background: url('circle_highlight.png');
+	background: url('images/circle_highlight.png');
 }
 
 .accept.highlight{
-	background: url('accept_circle_highlight.png');
+	background: url('images/accept_circle_highlight.png');
 }
 
 .segment {
@@ -83,7 +79,7 @@ body{
 }
 
 #start {
-	background: url('start.png');
+	background: url('images/start.png');
 	width: 100px;
 	height: 9px;
 	position: absolute;
