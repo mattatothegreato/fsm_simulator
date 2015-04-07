@@ -666,8 +666,8 @@ function TransitionLabel(id, text){
 	 * 		y:  y location of label
 	 */
 	this.set = function(x, y){
-		this.htmlElement.style.left = x;
-		this.htmlElement.style.top = y;
+		this.htmlElement.style.left = x + "px";
+		this.htmlElement.style.top = y + "px";
 	}
 
 	/**
