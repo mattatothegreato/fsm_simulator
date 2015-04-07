@@ -1,0 +1,93 @@
+<html>
+	<body>
+		<input type="text" id="inputString" maxLength="75" size="100m"/>
+		<input type="button" id="checkString" value="Check String" onclick="test();" />
+		<div id="result"></div>
+	</body>
+	<script src="List.js"></script>
+	<script src="FSM.js"></script>
+	<script type="text/javascript">
+		function addState(){
+			m.addState(new State("s" + counter, false));
+			counter++;
+		}
+
+		function toggleAccept(id){
+			m.getState(id).toggleAccept();
+		}
+
+		function setStart(id){
+			m.setStart(id);
+		}
+
+		function removeState(id){
+			m.removeState(id);
+		}
+
+		function addTransition(id1, id2, characters){
+			var s1 = m.getState(id1);
+			var s2 = m.getState(id2);
+
+			var cs = [];
+			for(var x = 0; x < characters.length; x++){
+				cs.push(characters.charAt(x));
+			}
+
+			s1.addTransition(new Transition(id1 + "->" + id2, s2, cs));
+		}
+
+		function removeTransition(id){
+			m.removeTransition(id);
+		}
+
+		function testString(test){
+			var valid = m.validate();
+			var accept = m.testString(test);
+			var result = "";
+			if(accept) result = "Accepted: " + test;
+			else result = "Rejected: " + test;
+
+			return result;
+		}
+
+		function addToAlphabet(str){
+			for(var x = 0; x < str.length; x++){
+				var c = str.charAt(x);
+				m.alphabet.add(c);
+			}
+		}
+
+		function print(){
+			alert("PRINTED MACHINE:\n" + m.toString());
+		}
+
+
+		var counter = 1;
+
+		var m = new Machine();
+		addToAlphabet("ab");
+
+		addState();
+		addState();
+		addState();
+
+		toggleAccept("s1");
+		toggleAccept("s2");
+
+		addTransition("s1", "s1", "a");
+		addTransition("s1", "s2", "b");
+		addTransition("s2", "s2", "b");
+		addTransition("s2", "s3", "a");
+		addTransition("s3", "s3", "ab");
+
+		print();
+		removeState("s1");
+		print();
+
+		function test(){
+			var str = document.getElementById("inputString").value;
+			print();
+			document.getElementById("result").innerHTML = testString(str);
+		}
+	</script>
+</html

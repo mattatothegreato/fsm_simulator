@@ -1,0 +1,93 @@
+body{
+	padding: 0px;
+	margin: 5px;
+}
+
+#alphabet_editing_container{
+	height: 1px;
+}
+
+#alphabet_elements{
+	border: 1px solid black;
+	margin: 5px;
+}
+
+#editing_elements{
+	margin: 5px;
+}
+
+#mainCanvas {
+	width: 100%;
+	min-width: 256px;
+	height: 100%;
+	min-height: 256px; 
+	border: 1px solid #21ec21;
+	background-color: #ffffff;
+	overflow: scroll;
+}
+
+#single_string_test_elements{
+	height: 1px;
+	margin: 5px;
+}
+
+#left{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	border: 1px solid black;
+}
+
+.draggable{
+	margin: 0px;
+	padding: 0px;
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	display: block;
+	background-color: #baffb0;
+	background: url('circle.png');
+	overflow: hidden;
+}
+
+.accept{
+	background: url('accept_circle.png');
+}
+
+.highlight{
+	background: url('circle_highlight.png');
+}
+
+.accept.highlight{
+	background: url('accept_circle_highlight.png');
+}
+
+.segment {
+	position: absolute;
+	z-index: 1000;
+}
+
+.transition-label {
+	min-width: 1em;
+	max-width: 100px;
+	max-height: 22px;
+	text-align: center;
+	background-color: #ffffff;
+	overflow: hidden;
+	position: absolute;
+	z-index: 10001;
+	border: 1px solid #ff00ff;
+}
+
+#start {
+	background: url('start.png');
+	width: 100px;
+	height: 9px;
+	position: absolute;
+	margin: 0px;
+	padding: 0px;
+	visibility: hidden;
+}
