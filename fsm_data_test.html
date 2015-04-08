@@ -3,6 +3,8 @@
 		<input type="text" id="inputString" maxLength="75" size="100m"/>
 		<input type="button" id="checkString" value="Check String" onclick="test();" />
 		<div id="result"></div>
+		<hr>
+		<div id="machine"></div>
 	</body>
 	<script src="List.js"></script>
 	<script src="FSM.js"></script>
@@ -61,6 +63,10 @@
 			alert("PRINTED MACHINE:\n" + m.toString());
 		}
 
+		function showMachine(){
+			document.getElementById("machine").innerHTML = "Machine: <br><br>" + m.toString().replace(/\n/ig, "<br>").replace(/ /ig, "&nbsp;");
+		}
+
 
 		var counter = 1;
 
@@ -80,13 +86,11 @@
 		addTransition("s2", "s3", "a");
 		addTransition("s3", "s3", "ab");
 
-		print();
-		removeState("s1");
-		print();
+		showMachine();
 
 		function test(){
 			var str = document.getElementById("inputString").value;
-			print();
+			//print();
 			document.getElementById("result").innerHTML = testString(str);
 		}
 	</script>
