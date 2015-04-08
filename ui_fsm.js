@@ -12,7 +12,7 @@ var counter = 0; //counter used to create unique state id's.
  *	Basically just adds the start arrow to our canvas.
  *	Initial visibility for our start arrow is hidden, as there is no start state.
  */
-function setup(){
+function setupFSMUI(){
 	var start = document.createElement("div");
 	start.setAttribute("id", "start");
 	start.setAttribute("class", "start");
@@ -23,7 +23,6 @@ function setup(){
 //--------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------
-
 
 
 
@@ -81,6 +80,7 @@ function removeState(id){
 		else x++;
 	}
 	document.getElementById("mainCanvas").removeChild(document.getElementById(id));
+	updateStart();
 }
 
 
@@ -110,9 +110,7 @@ function toggleAccept(id){
 function setStart(id){
 	machine.setStart(id);
 
-
 	if(machine.startState != null){
-		alert("visually change start");
 		updateStart();
 	}
 }
@@ -191,32 +189,6 @@ Y8a.    .a8P 88     	   Y8a.    .a8P  88     `8888 88          88
 
 
 /**
- *	setup used when creating a new state.
- *	Adds in draggable functionality, and doubleclick functionality.
- *
- *	parameters:
- *		id: 	id of the state to setup
- */
-function setupState(id){
-	$("#" + id).draggable({ 
-		containment: "#mainCanvas", 
-		scroll: true,
-		start: function(){
-			//hide transitions
-		},
-		drag: function(){ 
-		},
-		stop: function(){
-			update(id);
-		},
-	});
-	$("#" + id).dblclick(function(){
-		toggleAccept(id);
-	});	
-}
-
-
-/**
  * function to update the start arrow
  * Moves start arrow to the current start state, and shows it. 
  * However if there is no start state, it simply hides the start arrow.
@@ -257,6 +229,13 @@ function update(id){
 		if(transitionList.get(x).hasState(id)) transitionList.get(x).repaint();
 	}
 	updateStart();
+}
+
+function hideTransitions(id){
+	for(var x = 0; x < transitionList.size(); x++){
+		if(transitionList.get(x).hasState(id)) transitionList.get(x).show(false);
+	}
+	if(machine.startState != null && machine.startState.id === id) startVisibility(false);
 }
 
 
@@ -349,6 +328,7 @@ function addToAlphabet(str){
 		var c = str.charAt(x);
 		if(c != ' ') machine.alphabet.add(c);
 	}
+	document.getElementById("alphabet").innerHTML = machine.alphabet.toString() + "&nbsp;";
 }
 
 
@@ -536,6 +516,7 @@ function UI_Transition(id1, id2, characters){
 			}
 		}
 
+		this.show(true);
 		this.resetColor(); //resets color to new color based on transition type found above
 	}
 
@@ -570,6 +551,13 @@ function UI_Transition(id1, id2, characters){
 		this.middleSegment.remove();
 		this.finishSegment.remove();
 		this.label.remove();
+	}
+
+	this.show = function(show){
+		this.sourceSegment.show(show);
+		this.middleSegment.show(show);
+		this.finishSegment.show(show);
+		this.label.show(show);
 	}
 
 	//initialization
@@ -624,6 +612,11 @@ function Segment(id){
 	this.remove = function(){
 		this.htmlElement.parentNode.removeChild(this.htmlElement);
 	}
+
+	this.show = function(show){
+		if(show) this.htmlElement.style.visibility = "visible";
+		else this.htmlElement.style.visibility = "hidden";
+	}
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -675,5 +668,10 @@ function TransitionLabel(id, text){
 	 */
 	this.remove = function(){
 		this.htmlElement.parentNode.removeChild(this.htmlElement);
+	}
+
+	this.show = function(show){
+		if(show) this.htmlElement.style.visibility = "visible";
+		else this.htmlElement.style.visibility = "hidden";
 	}
 }

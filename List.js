@@ -48,14 +48,14 @@ function List(){
 	 */
 	this.remove = function(index){
 		if(index < 0 || index >= this.length) return null;
-		if(index == this.length){
+		if(index == this.length - 1){
 			this.length--;
 			return this.array.pop();
 		}
 
 		var element = this.array[index];
-		for(var i = index; i < this.length; i++){
-			this.array[i-1] = this.array[i];
+		for(var i = index; i < this.length - 1; i++){
+			this.array[i] = this.array[i+1];
 		}
 		this.array.pop();
 		this.length--;
