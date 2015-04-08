@@ -90,6 +90,8 @@ function checkString(){
 
 function setupButtons(){
 	 $(function(){
+	 	$(document).tooltip();
+
 		$("#sigma").button({
 			text: false
 		}).click(function (event){alert("todo - sigma"); });
@@ -98,21 +100,21 @@ function setupButtons(){
 			icons: {
 				primary: "ui-icon-plus"
 			},
-			text: false
+			text: true
 		}).click(function (event){ addState(); });
 
 		$("#add_transition").button({
 			icons: {
 				primary: "ui-icon-transfer-e-w"
 			},
-			text: false
+			text: true
 		}).click(function (event){ initTransitionCreation(); });
 
 		$("#remove_state").button({
 			icons: {
 				primary: "ui-icon-circle-close"
 			},
-			test: false
+			text: true
 		}).click(function (event){ initRemoveState(); });
 
 		$("#play").button({

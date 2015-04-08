@@ -73,6 +73,7 @@ body{
 	text-align: center;
 	background-color: #ffffff;
 	overflow: hidden;
+	text-overflow: ellipsis;
 	position: absolute;
 	z-index: 10001;
 	border: 1px solid #ff00ff;

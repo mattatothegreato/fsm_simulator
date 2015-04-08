@@ -630,13 +630,19 @@ function TransitionLabel(id, text){
 	this.id = id;  		//id of the label in the form "[TRANSITION ID]_label" 
 	this.text = text;	//text to display on the label
 	
-	//todo - setup tooltip and click functionality
+	//gets transition id "s0->s1" from "s0->s1_label" for example
+	this.transitionId = function(){
+		return this.id.substring(0, this.id.length - "_label".length);
+	}
+
+	//todo - setup click functionality
 
 	//add html element to ducment, and store it here
 	this.htmlElement = document.createElement("div");
 	this.htmlElement.setAttribute("id", this.id);
 	this.htmlElement.setAttribute("class", "transition-label");
 	this.htmlElement.innerHTML = text;
+	this.htmlElement.setAttribute("title", this.transitionId() + ":  " + this.text);
 	document.getElementById("mainCanvas").appendChild(this.htmlElement);
 
 	/** 
