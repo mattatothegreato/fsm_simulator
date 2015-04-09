@@ -33,6 +33,8 @@ var transitionIds = [];
 var removingState = false;
 
 function initTransitionCreation(){
+	endTransitionCreation();
+	
 	creatingTransition = true;
 	transitionNumber = 0;
 
@@ -40,19 +42,17 @@ function initTransitionCreation(){
 }
 
 function endTransitionCreation(){
+	for(var x = 0; x < transitionNumber; x++){
+		setHighlight(transitionIds[x], false);
+	}
+
 	creatingTransition = false;
 	transitionNumber = 0;
 }
 
 function transitionCreation(){
-	creatingTransition = false;
-	transitionNumber = 0;
-
 	//open up menu for selecting characters instead of always abcd
 	addTransition(transitionIds[0], transitionIds[1], "abcd");
-	
-	toggleHighlight(transitionIds[0]);
-	toggleHighlight(transitionIds[1]);
 
 	endTransitionCreation();
 }
@@ -71,10 +71,10 @@ function stateClick(id){
 	if(creatingTransition){
 		transitionIds[transitionNumber] = id;
 		transitionNumber++;
+		setHighlight(id, true);
 		if(transitionNumber > 1){
 			transitionCreation();
 		}
-		toggleHighlight(id);
 	}
 	else if(removingState){
 		removeState(id);

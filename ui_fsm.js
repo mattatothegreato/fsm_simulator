@@ -294,8 +294,9 @@ function removeTransitionVISUAL(id){
  *	parameters:
  *		id: 	id of state to change
  */
-function toggleHighlight(id){
-	$("#" + id).toggleClass("highlight");
+function setHighlight(id, highlight){
+	if(highlight) $("#" + id).addClass("highlight");
+	else $("#" + id).removeClass("highlight");
 }
 
 
