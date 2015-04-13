@@ -319,7 +319,7 @@ function setHighlight(id, highlight){
 
 /**
  * function to add characters to our machine's alphabet.
- * Ignores spaces.
+ * Ignores spaces and commas
  * 
  * parameters:
  * 		str: 	String of characters to add to the alphabet.
@@ -327,7 +327,7 @@ function setHighlight(id, highlight){
 function addToAlphabet(str){
 	for(var x = 0; x < str.length; x++){
 		var c = str.charAt(x);
-		if(c != ' ') machine.alphabet.add(c);
+		if(c != ' ' && c != ',') machine.alphabet.add(c);
 	}
 	document.getElementById("alphabet").innerHTML = machine.alphabet.toString() + "&nbsp;";
 }

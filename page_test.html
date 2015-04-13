@@ -16,9 +16,75 @@
 
 				addToAlphabet("abcd");
 			}
+
+			$(function() {
+				var dialog,  form,
+
+				alphabet_characters = $("#alphabet_characters"),
+				allFields = $([]).add(alphabet_characters),
+				tips =  $(".validateTips");
+
+			    function updateTips( t ) {
+			      tips
+			        .text( t )
+			        .addClass( "ui-state-highlight" );
+			      setTimeout(function() {
+			        tips.removeClass( "ui-state-highlight", 1500 );
+			      }, 500 );
+			    }
+
+			    function addAlphabet(){
+			    	var valid = true;
+			    	allFields.removeClass("ui-state-error");
+
+			    	if(valid){
+			    		addToAlphabet(alphabet_characters.val());
+			    		dialog.dialog("close");
+			    	}
+
+			    	return valid;
+			    }
+		        dialog = $( "#dialog-form" ).dialog({
+			      autoOpen: false,
+			      height: 300,
+			      width: 350,
+			      modal: true,
+			      buttons: {
+			        "Add": addAlphabet,
+			        Cancel: function() {
+			          dialog.dialog( "close" );
+			        }
+			      },
+			      close: function() {
+			        form[ 0 ].reset();
+			        allFields.removeClass( "ui-state-error" );
+			      }
+			    });
+			 
+			    form = dialog.find( "form" ).on( "submit", function( event ) {
+			      event.preventDefault();
+			      addUser();
+			    });
+			 
+			    $( "#sigma" ).button().on( "click", function() {
+			      dialog.dialog( "open" );
+			    });
+			})
 		</script>	
 	</head>
 	<body onload="setup()">
+		<div id="dialog-form" title="Edit Transition">
+		  <form>
+		    <fieldset>
+		      <label for="characters">Add Characters to Alphabet:</label>
+		      <input type="text" name="alphabet_characters" id="alphabet_characters" value="" class="text ui-widget-content ui-corner-all">
+		 
+		      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+		      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		    </fieldset>
+		  </form>
+		</div>
+
 		<table id="left">
 			<tr>
 				<td id="alphabet_editing_container">

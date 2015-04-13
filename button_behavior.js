@@ -94,7 +94,7 @@ function setupButtons(){
 
 		$("#sigma").button({
 			text: false
-		}).click(function (event){alert("todo - sigma"); });
+		});
 
 		$("#add_state").button({
 			icons: {
