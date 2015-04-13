@@ -1,0 +1,176 @@
+<html>
+	<head>
+		<title>FSM UI Test</title>
+		<link rel="stylesheet" href="jquery-ui-1.11.4.custom/jquery-ui.css">
+		<link rel="stylesheet" href="style.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="pocketgrid.css">
+		<script src="jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+		<script src="jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+		<script src="List.js"></script>
+		<script src="FSM.js"></script>
+		<script src="ui_fsm.js"></script>
+		<script src="button_behavior.js"></script>
+		<script type="text/javascript">
+			function setup(){
+				setupButtons();
+				setupFSMUI();
+
+				addToAlphabet("abcd");
+			}
+		</script>	
+	</head>
+	<body class="block-group" onload="setup()">
+		<div class="block left">
+			<div class="block-group alphabet_elements">
+				<button id="sigma">&#931</button>
+				<span id="alphabet">ALPHABET &nbsp;</span>
+			</div>
+			<div class="block-group editing_elements" id="editing_elements">
+				<button id="add_state">Add State</button>
+				<button id="add_transition">Add Transition</button>
+				<button id="remove_state">Remove State</button>
+			</div>
+			<div class="block-group canvas">
+				<div class="mainCanvas" id="mainCanvas">
+				</div>
+			</div>
+			<div class="block-group input_elements">
+				<input type="text" id="input_string">
+				<button id="play">Play String Test</button>
+				<button id="step">Step String Test</button>
+				<button id="check">Check String</button>
+				<button id="add_string">Add String</button>
+			</div>
+		</div>
+		<div class="block right">
+			<div class="block checked_strings">
+				<div>Checked Strings</div>
+				<div class="table_area">
+					<table id="checked_strings">
+						<tr class="checked_row">
+							<td class="checked_display">AABB</td>
+							<td class="checked_acceptance">A</td>
+							<td class="checked_pass"></td>
+						</tr>
+						<tr class="checked_row">
+							<td class="checked_display">AABB</td>
+							<td class="checked_acceptance">A</td>
+							<td class="checked_pass"></td>
+						</tr>
+						<tr class="checked_row">
+							<td class="checked_display">AABA</td>
+							<td class="checked_acceptance">R</td>
+							<td class="checked_pass"></td>
+						</tr>
+						<tr class="checked_row">
+							<td class="checked_display"></td>
+							<td class="checked_acceptance">A</td>
+							<td class="checked_pass"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="block test_set">
+				<div>Test Set</div>
+				<div class="table_area">
+					<table id="TheOtherTable">
+						<tr class="test_row">
+								<td class="test_display">AAAA</td>
+								<td class="test_acceptance"></td>
+								<td class="test_remove">
+									<button>X</button>
+								</td>
+						</tr>
+						<tr class="test_row">
+								<td class="test_display">AABB</td>
+								<td class="test_acceptance"></td>
+								<td class="test_remove">
+									<button>X</button>
+								</td>
+						</tr>
+						<tr class="test_row">
+								<td class="test_display">AABA</td>
+								<td class="test_acceptance"></td>
+								<td class="test_remove">
+									<button>X</button>
+								</td>
+						</tr>
+						<tr class="test_row">
+								<td class="test_display"></td>
+								<td class="test_acceptance"></td>
+								<td class="test_remove">
+									<button>X</button>
+								</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<button class="block test_button">Check All</button>
+		</div>
+		
+		<style>
+			.left {
+				width: 70%;
+				height: 100%;
+			}
+			
+			.right {
+				width: 30%;
+				height: 100%;
+			}
+			
+			.input_elements {
+				width: 100%;
+			}
+			
+			.checked_display, .test_display {
+				width: 70%;
+			}
+			
+			checked_acceptance, .checked_pass, .test_acceptance, .test_remove {
+				width: 15%;
+			}
+			
+			table, th, td {
+				border: 2px solid black;
+        border-collapse: collapse;
+			}
+			
+			table {
+				width: 100%;
+			}
+			
+			.table_area {
+				height: 40%;
+			}
+			
+			td {
+				height: 10%;
+			}
+			
+			.test_button {
+				width: 50%;
+				float: right;
+			}
+			
+			.canvas {
+				width: 95%;
+				height: 70%;
+			}
+
+			button {
+				margin-left: 0px;
+				margin-right: 1px;
+				margin-bottom: 5px;
+				margin-top: 0px;
+			}
+			
+			#add_state, #add_transition, #remove_state {
+				width: 30%;
+			}
+			
+			input {
+				width: 50%;
+			}
+		</style>
