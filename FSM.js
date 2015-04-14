@@ -40,9 +40,12 @@ function Machine(){
 	 * 	 	id: 	id of the state to remove
 	 */
 	this.removeState = function(id){
+		var index = -1;
 		for(var x = 0; x < this.states.size(); x++){
-			if(this.states.get(x).id === id) this.states.remove(x);
+			this.removeTransition(this.states.get(x).id + "->" + id);
+			if(this.states.get(x).id === id) index = x;
 		}
+		if(index > -1) this.states.remove(index);
 		if(this.startState != null && this.startState.id === id) this.startState = null;
 	}
 
