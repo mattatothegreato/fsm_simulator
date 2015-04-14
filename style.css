@@ -63,7 +63,7 @@ body{
 
 .segment {
 	position: absolute;
-	z-index: 1000;
+	z-index: 10;
 }
 
 .transition-label {
@@ -75,7 +75,7 @@ body{
 	overflow: hidden;
 	text-overflow: ellipsis;
 	position: absolute;
-	z-index: 10001;
+	z-index: 11;
 	border: 1px solid #ff00ff;
 }
 

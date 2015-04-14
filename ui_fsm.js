@@ -134,7 +134,8 @@ function addTransition(id1, id2, characters){
 
 	var cs = []; //initialize our list of characters
 	for(var x = 0; x < characters.length; x++){
-		if(characters.charAt(x) != ' '){ //add character from string to list (ignore spaces)
+		var c = characters.charAt(x);
+		if(c != ' ' && c != ',' && machine.alphabet.has(c)){ //add character from string to list (ignore spaces)
 			cs.push(characters.charAt(x));
 		}
 	}
@@ -142,14 +143,21 @@ function addTransition(id1, id2, characters){
 	//transition id
 	var id = id1 + "->" + id2;
 
-	//add transition to machine
-	s1.addTransition(new Transition(id, s2, cs)); 
+	if(cs.length < 1){
+		machine.removeTransition(id);
+		removeTransitionVISUAL(id);
+	}
+	else{
+		//add transition to machine
+		var  temp = new Transition(id, s2, cs);
+		s1.addTransition(temp); 
 
-	//add transition to ui {
-		removeTransitionVISUAL(id); //remove transition from ui (instead of editing)
-		var ui_transition = new UI_Transition(id1, id2, characters);
-		transitionList.add(ui_transition);
-	//}
+		//add transition to ui {
+			removeTransitionVISUAL(id); //remove transition from ui (instead of editing)
+			var ui_transition = new UI_Transition(id1, id2, temp.characters.getCharacters());
+			transitionList.add(ui_transition);
+		//}
+	}
 }
 
 
@@ -166,6 +174,21 @@ function removeTransition(id1, id2){
 	machine.removeTransition(id);
 
 	removeTransitionVISUAL(id);
+}
+
+/**
+ * function to get the characters of a transition
+ *
+ * parameters:
+ * 		id: 	id of the transition
+ *
+ * return:
+ * 		characters in the transition, or "" if transition not found
+ */
+function getTransitionCharacters(id){
+	var transition = machine.getTransition(id);
+	if(transition == null) return "";
+	return transition.characters.getCharacters();
 }
 
 

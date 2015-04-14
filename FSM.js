@@ -59,6 +59,18 @@ function Machine(){
 	}
 
 	/**
+	 * function to get transition from the machine
+	 *
+	 * parameters:
+	 * 		id: 	id of the transition to retrieve
+	 */
+	 this.getTransition = function(id){
+	 	var s1 = id.substring(0, id.indexOf("->"));
+
+	 	return this.getState(s1).getTransition(id);
+	 }
+
+	/**
 	 * function to set new start state for the machine
 	 *
 	 * parameters:
@@ -163,6 +175,18 @@ function State(id, e){
 			if(this.transitions.get(x).id === id) this.transitions.remove(x);
 		}
 	}
+
+	/**
+	 * function to get a transition
+	 *
+	 * parameters:
+	 * 		id: 	id of transition to retrieve
+	 */
+	 this.getTransition = function(id){
+	 	for(var x = 0; x < this.transitions.size(); x++){
+	 		if(this.transitions.get(x).id === id) return this.transitions.get(x);
+	 	}
+	 }
 
 	/**
 	 * function to try to make a transition via the given character

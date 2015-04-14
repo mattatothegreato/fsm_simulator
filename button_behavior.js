@@ -34,11 +34,19 @@ var removingState = false;
 
 function initTransitionCreation(){
 	endTransitionCreation();
-	
+	endRemoveState();
+
 	creatingTransition = true;
 	transitionNumber = 0;
+	current_task.text("Click First State of Transition");
+}
 
-	endRemoveState();
+function openTransitionDialog(){
+	var id = transitionIds[0] + "->" + transitionIds[1];
+	current_task.text("Editing Transition: " + id);
+	transition_tip.text(id);
+	transition_characters.val(getTransitionCharacters(id));
+	transition_dialog.dialog("open");
 }
 
 function endTransitionCreation(){
@@ -48,23 +56,18 @@ function endTransitionCreation(){
 
 	creatingTransition = false;
 	transitionNumber = 0;
-}
-
-function transitionCreation(){
-	//open up menu for selecting characters instead of always abcd
-	addTransition(transitionIds[0], transitionIds[1], "abcd");
-
-	endTransitionCreation();
+	current_task.text("");
 }
 
 function initRemoveState(){
-	removingState = true;
-
 	endTransitionCreation();
+	removingState = true;
+	current_task.text("Click State to Remove");
 }
 
 function endRemoveState(){
 	removingState = false;
+	current_task.text("");
 }
 
 function stateClick(id){
@@ -72,8 +75,11 @@ function stateClick(id){
 		transitionIds[transitionNumber] = id;
 		transitionNumber++;
 		setHighlight(id, true);
+		if(transitionNumber == 1){
+			current_task.text("Click Second State of Transition");
+		}
 		if(transitionNumber > 1){
-			transitionCreation();
+			openTransitionDialog();
 		}
 	}
 	else if(removingState){
@@ -88,22 +94,29 @@ function checkString(){
 	alert("" + machine.testString(str));
 }
 
+var current_task;
+
+var transition_tip;
+var transition_dialog;
+var transition_characters;
 function setupButtons(){
 	 $(function(){
 	 	$(document).tooltip();
 
+	 	current_task = $("#current_task");
+
 		$("#sigma").button({
 			text: false
-		});
+		}).click(function(event){ alphabet_dialog.dialog("open"); });
 
 		$("#add_state").button({
 			icons: {
 				primary: "ui-icon-plus"
 			},
 			text: true
-		}).click(function (event){ addState(); });
+		}).click(function (event){ addState(); endTransitionCreation(); endRemoveState(); });
 
-		$("#add_transition").button({
+		$("#edit_transition").button({
 			icons: {
 				primary: "ui-icon-transfer-e-w"
 			},
@@ -152,5 +165,72 @@ function setupButtons(){
 			},
 			text: false
 		});
+
+
+
+		var alphabet_characters = $("#alphabet_characters");
+
+        var alphabet_dialog = $( "#alphabet_dialog" ).dialog({
+	      autoOpen: false,
+	      height: 300,
+	      width: 350,
+	      modal: true,
+	      buttons: {
+	        "Add": addAlphabet,
+	        Cancel: closeAlphabet
+	      },
+	      close: function() {
+	      	closeAlphabet();
+	      }
+	    });
+
+        alphabet_dialog.find("form").on("submit", function(event){
+        	event.preventDefault();
+        	addAlphabet();
+        });
+
+	    function addAlphabet(){
+			addToAlphabet(alphabet_characters.val());
+			closeAlphabet();
+	    }
+
+	    function closeAlphabet(){
+	    	alphabet_dialog.dialog("close");
+	    	alphabet_characters.val("");
+	    }
+
+	    transition_characters = $("#transition_characters");
+	    transition_tip = $("#transition_tip");
+
+	    transition_dialog = $("#transition_dialog").dialog({
+	    	autoOpen: false,
+	    	height: 300,
+	    	width: 350,
+	    	modal: true,
+	    	buttons: {
+	    		"Add": addTransition_,
+	    		Cancel: closeTransition
+	    	},
+	    	close:  function(){
+	    		closeTransition();
+	    	}
+	    });
+
+	    transition_dialog.find("form").on("submit", function(event){
+	    	event.preventDefault();
+	    	addTransition_();
+	    });
+
+	    function addTransition_(){
+	    	var characters = transition_characters.val();
+	    	addTransition(transitionIds[0], transitionIds[1],  characters);
+	    	closeTransition();
+	    }
+
+	    function closeTransition(){
+	    	transition_dialog.dialog("close");
+	    	transition_characters.val("");
+	    	endTransitionCreation();
+	    }
     });
 }

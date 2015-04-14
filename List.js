@@ -121,6 +121,21 @@ function AlphabetList(){
 	}
 
 	/**
+	 * function to get all the characters from the list
+	 *
+	 * return:
+	 * 		all the characters in this object, separated by ", "
+	 */
+	 this.getCharacters = function(){
+		var result = "";
+		for(var x = 0; x < this.list.size() - 1; x++){
+			result += this.list.get(x) + ", ";
+		}
+		if(this.list.size() > 0) result += this.list.get(this.list.size() - 1);
+		return result;
+	 }
+
+	/**
 	 * function to get string representation of this object
 	 * Gives string such that each character is given within brackets, followed by ", "
 	 *
@@ -128,11 +143,6 @@ function AlphabetList(){
 	 * 		string representation of this object
 	 */
 	this.toString = function(){
-		var result = "";
-		for(var x = 0; x < this.list.size() - 1; x++){
-			result += this.list.get(x) + ", ";
-		}
-		if(this.list.size() > 0) result += this.list.get(this.list.size() - 1);
-		return "[" + result + "]";
+		return "[" + this.getCharacters() + "]";
 	}
 }
