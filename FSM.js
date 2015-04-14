@@ -97,6 +97,25 @@ function Machine(){
 		}
 		return valid;
 	}
+	
+	/**
+	 * function to step through a string
+	 * 
+	 * return
+	 * 	resulting state of the step
+	 */
+	this.step = function(state, string){
+		if(this.validate()){
+			if(state == null) state = this.startState;
+			var c = string.charAt(0);
+			var result = state.translate(c);
+			return result;
+		}
+		else{
+			alert("invalid machine");
+			return null;
+		}
+	}
 
 	/**
 	 * function to determine if given string is in machine's language
